@@ -1,0 +1,21 @@
+#include <stdarg.h>
+#include <stddef.h>
+#include <setjmp.h>
+#include <stdint.h>
+#include <cmocka.h>
+#include "fizzbuzz.h"
+
+void test_output_fizz_for_3_times(void **state) {
+    char *output = fizzbuzz(3);
+    assert_string_equal("fizz", output);
+}
+
+
+int main(void)
+{
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(test_output_fizz_for_3_times),
+    };
+
+    return cmocka_run_group_tests(tests, NULL, NULL);
+}

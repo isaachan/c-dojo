@@ -1,6 +1,10 @@
-char * fizzbuz(int);
+#include "fizzbuzz.h"
+#include <stdio.h>
 
 char * fizzbuzz(int input)
 {
-    return "fizz";
+    if (input % 3 == 0)
+        return "fizz";
+    
+    return "1";
 }

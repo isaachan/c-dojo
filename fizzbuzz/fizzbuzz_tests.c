@@ -6,8 +6,19 @@
 #include "fizzbuzz.h"
 
 void test_output_fizz_for_3_times(void **state) {
-    char *output = fizzbuzz(3);
-    assert_string_equal("fizz", output);
+    int size = 2;
+    
+    int numbers[] = { 1, 3 };
+    char * outputs[] = { "1", "fizz"};
+
+    for (int i = 0; i < size; i++)
+    {
+        char *output = fizzbuzz(numbers[i]);
+        assert_string_equal(outputs[i], output);
+    }
+
+    //char *output = fizzbuzz(3);
+    //assert_string_equal("fizz", output);
 }
 
 

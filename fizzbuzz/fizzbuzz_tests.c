@@ -15,8 +15,6 @@ void test_output_fizz_for_3_times(void **state) {
         assert_string_equal(outputs[i], output);
     }
 
-    //char *output = fizzbuzz(3);
-    //assert_string_equal("fizz", output);
 }
 
 

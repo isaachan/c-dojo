@@ -4,7 +4,11 @@
 
 void fizzbuzz(int input, char *output)
 {
-    if (input % 3 == 0)
+    if (input % 15 == 0)
+    {
+        strcpy(output, "fizzbuzz");
+    }
+    else if (input % 3 == 0)
     {
         strcpy(output, "fizz");
     }
@@ -14,8 +18,7 @@ void fizzbuzz(int input, char *output)
     }
     else 
     {   
-         
         sprintf(output, "%d", input);
-        //strcpy(output, "1");
     }
 }
+

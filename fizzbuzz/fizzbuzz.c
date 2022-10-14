@@ -1,10 +1,15 @@
 #include "fizzbuzz.h"
 #include <stdio.h>
+#include <string.h>
 
-char * fizzbuzz(int input)
+void fizzbuzz(int input, char *output)
 {
     if (input % 3 == 0)
-        return "fizz";
-    
-    return "1";
+    {
+        strcpy(output, "fizz");
+    }
+    else 
+    {    
+        strcpy(output, "1");
+    }
 }

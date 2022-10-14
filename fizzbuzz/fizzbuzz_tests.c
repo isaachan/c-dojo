@@ -11,7 +11,8 @@ void test_output_fizz_for_3_times(void **state) {
 
     for (int i = 0; i < sizeof numbers/sizeof numbers[0]; i++)
     {
-        char *output = fizzbuzz(numbers[i]);
+        char output[9];
+        fizzbuzz(numbers[i], output);
         assert_string_equal(outputs[i], output);
     }
 

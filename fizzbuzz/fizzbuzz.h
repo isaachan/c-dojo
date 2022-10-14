@@ -1,1 +1,2 @@
-char * fizzbuzz(int);
+void fizzbuzz(int, char*);
+

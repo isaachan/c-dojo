@@ -6,8 +6,8 @@
 #include "fizzbuzz.h"
 
 void test_output_fizz_for_3_times(void **state) {
-    int numbers[] = { 1, 3 };
-    char * outputs[] = { "1", "fizz"};
+    int numbers[] = { 1, 3, 5, 7, 9, 10 };
+    char * outputs[] = { "1", "fizz", "buzz", "7", "fizz", "buzz"};
 
     for (int i = 0; i < sizeof numbers/sizeof numbers[0]; i++)
     {

@@ -8,8 +8,14 @@ void fizzbuzz(int input, char *output)
     {
         strcpy(output, "fizz");
     }
+    else if (input % 5 == 0)
+    {
+        strcpy(output, "buzz");
+    }
     else 
-    {    
-        strcpy(output, "1");
+    {   
+         
+        sprintf(output, "%d", input);
+        //strcpy(output, "1");
     }
 }

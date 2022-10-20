@@ -7,11 +7,12 @@
 
 bool is_equal(length, length);
 
+
+
 void test_length_convert()
 {
-    length source = {1, FOOT};
-    length target = convert(source, FOOT);
-    assert_true(is_equal(source, target));
+    length target = convert((length) {1, FOOT}, FOOT);
+    assert_true(is_equal((length) {1, FOOT}, target));
 } 
 
 int main(void)

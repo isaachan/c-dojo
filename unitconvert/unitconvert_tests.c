@@ -10,13 +10,15 @@ bool is_equal(length, length);
 
 length data[][2] = {
     { {1, FOOT}, {1, FOOT} },
-    { {3, INCH}, {3, INCH} }
+    { {3, INCH}, {3, INCH} },
+    { {1, FOOT}, {12, INCH} },
 };
 
 void test_length_convert()
 {
     for (int i = 0; i < sizeof data/sizeof data[0]; i++) 
     {
+        printf("i=%d\n", i);
         length converted = convert(data[i][0], data[i][1].unit);
         assert_true(is_equal(data[i][1], converted));
     }

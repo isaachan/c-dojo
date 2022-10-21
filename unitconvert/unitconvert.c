@@ -17,6 +17,10 @@ length convert(length source, UNIT target_unit)
     {
         return (length) { source.value * 3, target_unit };
     }
+    if (source.unit == FOOT && target_unit == YARD)
+    {
+        return (length) { source.value * (1.0 / 3), target_unit };
+    }
     return source;
 }
 

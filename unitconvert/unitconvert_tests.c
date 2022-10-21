@@ -11,6 +11,7 @@ bool is_equal(length, length);
 length data[][2] = {
     { {1, FOOT}, {1, FOOT} },
     { {3, INCH}, {3, INCH} },
+    { {0, INCH}, {0, FOOT} },
     { {1, FOOT}, {12, INCH} },
     { {12, INCH}, {1, FOOT} },
     { {1, YARD}, {3, FOOT} },

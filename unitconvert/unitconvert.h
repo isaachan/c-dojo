@@ -3,7 +3,7 @@
 
 typedef enum 
 {
-    FOOT, INCH, YARD
+    YARD=36, FOOT=12, INCH=1
 } UNIT;
 
 typedef struct 

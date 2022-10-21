@@ -13,6 +13,7 @@ length data[][2] = {
     { {3, INCH}, {3, INCH} },
     { {1, FOOT}, {12, INCH} },
     { {12, INCH}, {1, FOOT} },
+    { {1, YARD}, {3, FOOT} },
 };
 
 void test_length_convert()

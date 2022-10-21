@@ -9,6 +9,10 @@ length convert(length source, UNIT target_unit)
     {
         return (length) { source.value * 12, target_unit };
     }
+    if (source.unit == INCH && target_unit == FOOT)
+    {
+        return (length) { source.value / 12, target_unit};
+    }
     return source;
 }
 

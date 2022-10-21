@@ -4,16 +4,23 @@
 #include <setjmp.h>
 #include <cmocka.h>
 #include "unitconvert.h"
+#include <stdio.h>
 
 bool is_equal(length, length);
 
-
+length data[][2] = {
+    { {1, FOOT}, {1, FOOT} },
+    { {3, INCH}, {3, INCH} }
+};
 
 void test_length_convert()
 {
-    length target = convert((length) {1, FOOT}, FOOT);
-    assert_true(is_equal((length) {1, FOOT}, target));
-} 
+    for (int i = 0; i < sizeof data/sizeof data[0]; i++) 
+    {
+        length converted = convert(data[i][0], data[i][1].unit);
+        assert_true(is_equal(data[i][1], converted));
+    }
+}
 
 int main(void)
 {
@@ -26,7 +33,7 @@ int main(void)
 
 bool is_equal(length l1, length l2)
 {
-    return l1.value = l2.value && l1.unit == l2.unit;
+    return l1.value == l2.value && l1.unit == l2.unit;
 }
 
 

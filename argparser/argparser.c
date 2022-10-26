@@ -46,7 +46,7 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
         
         if (currentState == WAITING_FOR_DIR)
         {
-            strcpy(p->path, argv[i]);
+            strcpy(p->dir, argv[i]);
             currentState = WAITING_FOR_LABEL;
         }
     

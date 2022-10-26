@@ -5,4 +5,4 @@ typedef struct
     char* path;
 } parameters;
 
-parameters parse_args(char *[]);
+parameters parse_args(int, char *[]);

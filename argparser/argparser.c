@@ -1,8 +1,8 @@
 #include <stdbool.h>
 #include "argparser.h"
 
-parameters parse_args(char *args[])
+parameters parse_args(int args, char *argv[])
 {
-    return (parameters) {true, 0, ""};
+    return (parameters) {true, 80, ""};
 }
 

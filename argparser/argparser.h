@@ -1,3 +1,9 @@
+enum PARSE_RESULT 
+{
+    OK = 0,
+    INVALID_PORT,
+};
+
 typedef struct
 {
     bool logging;
@@ -5,4 +11,4 @@ typedef struct
     char* path;
 } parameters;
 
-parameters parse_args(int, char *[]);
+enum PARSE_RESULT parse_args(parameters *, int, char *[]);

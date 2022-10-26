@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 #include "argparser.h"
 
 int parse_port(char []);
 
-enum State {
+enum State 
+{
     WAITING_FOR_LABEL = 0,
     WAITING_FOR_PORT,
 };
 
-parameters parse_args(int args, char *argv[])
+enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
 { 
-    parameters p = {true, 80, ""};
+    //parameters p = {true, 80, ""};
 
     enum State currentState = WAITING_FOR_LABEL;
     for (int i = 1; i < args; i++)
@@ -29,14 +31,16 @@ parameters parse_args(int args, char *argv[])
         if (currentState == WAITING_FOR_PORT)
         {
             int port = parse_port(argv[i]);
-            p.port = port;
+            if (0 == port)
+                return INVALID_PORT;
+            p->port = port;
         }
     
     }
-    return p;
+    return OK;
 }
 
 int parse_port(char input[])
 {
-    return 8080;
+    return atoi(input);
 };

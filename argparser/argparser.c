@@ -2,8 +2,10 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "argparser.h"
 
+int parse_logging(char *, bool*);
 int parse_port(char []);
 
 enum State 
@@ -11,6 +13,7 @@ enum State
     WAITING_FOR_LABEL = 0,
     WAITING_FOR_PORT,
     WAITING_FOR_DIR,
+    WAITING_FOR_LOGGING,
 };
 
 enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
@@ -33,6 +36,12 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
                 currentState = WAITING_FOR_DIR;
                 continue;
             }
+
+            if (0 == strcmp(argv[i], "-l"))
+            {
+                currentState = WAITING_FOR_LOGGING;
+                continue;
+            }
         }
 
         if (currentState == WAITING_FOR_PORT)
@@ -49,12 +58,39 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
             strcpy(p->dir, argv[i]);
             currentState = WAITING_FOR_LABEL;
         }
+
+        if (currentState == WAITING_FOR_LOGGING)
+        {
+            bool isLogging;
+            parse_logging(argv[i], &isLogging);           
+            p->logging = isLogging;
+        }
     
     }
     return OK;
 }
 
+
+int parse_logging(char *input, bool* result)
+{
+    unsigned long int s_len = strlen(input);
+    char upper[s_len];
+    for (int i = 0; i < s_len; i++)
+    {
+        upper[i] = (unsigned char) toupper(input[i]);
+    }
+    if (0 == strcmp("TRUE", upper)) *result = true;
+    if (0 == strcmp("FALSE", upper)) *result = false;
+    return 0;
+}
+
+
 int parse_port(char input[])
 {
     return atoi(input);
-};
+}
+
+
+
+
+

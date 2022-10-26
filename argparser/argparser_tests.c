@@ -59,6 +59,17 @@ void test_parse_dir()
     assert_true(OK == result);
 }
 
+void test_parse_logging_true()
+{
+    int args = 3;
+    char *argv[] = { "bin_name", "-l", "false" };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    assert_true(!p.logging);
+    assert_true(OK == result);
+}
+
 int main()
 {
     const struct CMUnitTest tests[] = {
@@ -66,6 +77,8 @@ int main()
         cmocka_unit_test(test_no_input_then_return_default_config),
         cmocka_unit_test(test_parse_invalid_port),
         cmocka_unit_test(test_parse_dir),
+        cmocka_unit_test(test_parse_logging_true),
     };
+
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

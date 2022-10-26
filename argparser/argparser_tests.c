@@ -19,7 +19,7 @@ void test_no_input_then_return_default_config()
     assert_true(p.logging);
 }
 
-void test_dummy()
+void test_parse_port()
 {
     int args = 3;
     char *argv[] = { "bin_name", "-p", "8080" };
@@ -32,7 +32,7 @@ void test_dummy()
 int main()
 {
     const struct CMUnitTest tests[] = {
-    //    cmocka_unit_test(test_dummy),
+        cmocka_unit_test(test_parse_port),
         cmocka_unit_test(test_no_input_then_return_default_config),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

@@ -8,7 +8,7 @@ typedef struct
 {
     bool logging;
     int port;
-    char* path;
+    char path[40];
 } parameters;
 
 enum PARSE_RESULT parse_args(parameters *, int, char *[]);

@@ -46,12 +46,26 @@ void test_parse_invalid_port()
     assert_true(result == INVALID_PORT);
 }
 
+void test_parse_path()
+{
+    int args = 3;
+    char *argv[] = { "bin_name", "-d", "/path/to/somewhere" };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    assert_true(0 == strcmp("/path/to/somewhere", p.path));
+    assert_true(p.port == 80);
+    assert_true(p.logging);
+    assert_true(OK == result);
+}
+
 int main()
 {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_parse_port),
         cmocka_unit_test(test_no_input_then_return_default_config),
         cmocka_unit_test(test_parse_invalid_port),
+        cmocka_unit_test(test_parse_path),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

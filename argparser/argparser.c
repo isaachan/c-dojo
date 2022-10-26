@@ -10,6 +10,7 @@ enum State
 {
     WAITING_FOR_LABEL = 0,
     WAITING_FOR_PORT,
+    WAITING_FOR_DIR,
 };
 
 enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
@@ -26,6 +27,12 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
                 currentState = WAITING_FOR_PORT;
                 continue;
             }
+            
+            if (0 == strcmp(argv[i], "-d"))
+            {
+                currentState = WAITING_FOR_DIR;
+                continue;
+            }
         }
 
         if (currentState == WAITING_FOR_PORT)
@@ -34,6 +41,13 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
             if (0 == port)
                 return INVALID_PORT;
             p->port = port;
+            currentState = WAITING_FOR_LABEL;
+        }
+        
+        if (currentState == WAITING_FOR_DIR)
+        {
+            strcpy(p->path, argv[i]);
+            currentState = WAITING_FOR_LABEL;
         }
     
     }

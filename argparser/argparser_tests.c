@@ -8,6 +8,8 @@
 #include <string.h>
 #include "argparser.h"
 
+void valid_parse_logging(char*, bool);
+
 void test_no_input_then_return_default_config()
 {
     int args = 1;  
@@ -61,24 +63,32 @@ void test_parse_dir()
 
 void test_parse_logging_true()
 {
-    int args = 3;
-    char *argv[] = { "bin_name", "-l", "true" };
-    parameters p = { true, 80, "" };
+    valid_parse_logging("false", false);
+    valid_parse_logging("FALSE", false);
+    valid_parse_logging("fAlSe", false);
+    valid_parse_logging("FalSE", false);
 
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
-    assert_true(p.logging);
-    assert_true(OK == result);
+    valid_parse_logging("true", true);
+    valid_parse_logging("TRUE", true);
+    valid_parse_logging("tRuE", true);
+    valid_parse_logging("truE", true);
 }
+
 
 void test_parse_logging_false()
 {
+
+}
+
+void valid_parse_logging(char* input, bool expected)
+{
     int args = 3;
-    char *argv[] = { "bin_name", "-l", "false" };
+    char *argv[] = { "bin_name", "-l", input };
     parameters p = { true, 80, "" };
 
     enum PARSE_RESULT result = parse_args(&p, args, argv);
-    assert_true(!p.logging);
-    assert_true(OK == result);
+    assert_true(p.logging == expected);
+    assert_true(OK == result);    
 }
 
 int main()

@@ -40,12 +40,16 @@ void test_parse_port()
 
 void test_parse_invalid_port()
 {
-    int args = 3;
-    char *argv[] = { "bin_name", "-p", "INVALID_PORT" };
-    parameters p = { true, 80, "" };
+    char *invalid_ports[] = { "invalid_port" };    
+    for (int i = 0; i < sizeof invalid_ports/sizeof invalid_ports[0]; i++)
+    {
+        int args = 3;
+        char *argv[] = { "bin_name", "-p", invalid_ports[i] };
+        parameters p = { true, 80, "" };
 
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
-    assert_true(result == INVALID_PORT);
+        enum PARSE_RESULT result = parse_args(&p, args, argv);
+        assert_true(result == INVALID_PORT);
+    }
 }
 
 void test_parse_dir()
@@ -99,8 +103,8 @@ void valid_parse_logging(char* input, bool expected)
 int main()
 {
     const struct CMUnitTest tests[] = {
-        cmocka_unit_test(test_parse_port),
         cmocka_unit_test(test_no_input_then_return_default_config),
+        cmocka_unit_test(test_parse_port),
         cmocka_unit_test(test_parse_invalid_port),
         cmocka_unit_test(test_parse_dir),
         cmocka_unit_test(test_parse_logging),

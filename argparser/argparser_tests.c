@@ -61,7 +61,7 @@ void test_parse_dir()
     assert_true(OK == result);
 }
 
-void test_parse_logging_true()
+void test_parse_logging()
 {
     valid_parse_logging("false", false);
     valid_parse_logging("FALSE", false);
@@ -72,12 +72,6 @@ void test_parse_logging_true()
     valid_parse_logging("TRUE", true);
     valid_parse_logging("tRuE", true);
     valid_parse_logging("truE", true);
-}
-
-
-void test_parse_logging_false()
-{
-
 }
 
 void valid_parse_logging(char* input, bool expected)
@@ -98,8 +92,7 @@ int main()
         cmocka_unit_test(test_no_input_then_return_default_config),
         cmocka_unit_test(test_parse_invalid_port),
         cmocka_unit_test(test_parse_dir),
-        cmocka_unit_test(test_parse_logging_true),
-        cmocka_unit_test(test_parse_logging_false),
+        cmocka_unit_test(test_parse_logging),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

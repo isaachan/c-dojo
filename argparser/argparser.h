@@ -4,6 +4,7 @@ enum PARSE_RESULT
     INVALID_PORT,
     INVALID_LOGGING,
     UNKNOWN_LABEL,
+    MISSING_LABEL,
 };
 
 typedef struct

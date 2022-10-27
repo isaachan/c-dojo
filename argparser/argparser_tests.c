@@ -104,6 +104,15 @@ void test_unknown_label()
     assert_true(result == UNKNOWN_LABEL);
 }
 
+void test_missing_label()
+{
+    char *argv[] = { "bin_name", "-l", "true", "/path"  };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
+    assert_true(result == MISSING_LABEL);
+}
+
 void valid_parse_logging(char* input, bool expected)
 {
     char *argv[] = { "bin_name", "-l", input };
@@ -125,6 +134,7 @@ int main()
         cmocka_unit_test(test_parse_invliad_logging),
         cmocka_unit_test(test_parse_multiple_parameters),
         cmocka_unit_test(test_unknown_label),
+        cmocka_unit_test(test_missing_label),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

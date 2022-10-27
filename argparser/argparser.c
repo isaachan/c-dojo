@@ -66,6 +66,7 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
             if (result < 0)
 	        return INVALID_LOGGING;
             p->logging = isLogging;
+	    currentState = WAITING_FOR_LABEL;
         }
     
     }

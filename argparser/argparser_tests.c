@@ -12,11 +12,10 @@ void valid_parse_logging(char*, bool);
 
 void test_no_input_then_return_default_config()
 {
-    int args = 1;  
     char *argv[] = { "bin_name" };
     parameters p = { true, 80, "" }; 
 
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
     
     assert_true(strcmp(p.dir, "") == 0);
     assert_true(p.port == 80);
@@ -26,11 +25,10 @@ void test_no_input_then_return_default_config()
 
 void test_parse_port()
 {
-    int args = 3;
     char *argv[] = { "bin_name", "-p", "8080" };
     parameters p = { true, 80, "" };
     
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
     
     assert_true(strcmp(p.dir, "") == 0);
     assert_true(p.port == 8080);
@@ -43,22 +41,20 @@ void test_parse_invalid_port()
     char *invalid_ports[] = { "invalid_port", "-12", "0" };    
     for (int i = 0; i < sizeof invalid_ports/sizeof invalid_ports[0]; i++)
     {
-        int args = 3;
         char *argv[] = { "bin_name", "-p", invalid_ports[i] };
         parameters p = { true, 80, "" };
 
-        enum PARSE_RESULT result = parse_args(&p, args, argv);
+        enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
         assert_true(result == INVALID_PORT);
     }
 }
 
 void test_parse_dir()
 {
-    int args = 3;
     char *argv[] = { "bin_name", "-d", "/path/to/somewhere" };
     parameters p = { true, 80, "" };
 
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
     assert_true(0 == strcmp("/path/to/somewhere", p.dir));
     assert_true(p.port == 80);
     assert_true(p.logging);
@@ -80,11 +76,10 @@ void test_parse_logging()
 
 void test_parse_invliad_logging()
 {
-    int args = 3;
     char *argv[] = { "bin_name", "-l", "NOT_A_BOOL" };
     parameters p = { true, 80, "" };
 
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
     assert_true(result == INVALID_LOGGING);
 
 }
@@ -101,7 +96,13 @@ void valid_parse_logging(char* input, bool expected)
 
 void valid_parse_multiple_parameters()
 {
-    
+    char *argv[] = { "bin_name", "-l", "true", "-d", "/path", "-p", "8000" };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
+    assert_true(p.logging == true);
+    assert_true(p.port == 8000);
+    assert_true(0 == strcmp(p.dir, "/path"));
 }
 
 int main()
@@ -113,6 +114,7 @@ int main()
         cmocka_unit_test(test_parse_dir),
         cmocka_unit_test(test_parse_logging),
 	cmocka_unit_test(test_parse_invliad_logging),
+	cmocka_unit_test(valid_parse_multiple_parameters),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

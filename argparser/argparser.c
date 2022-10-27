@@ -75,10 +75,12 @@ int parse_logging(char *input, bool* result)
 {
     unsigned long int s_len = strlen(input);
     char upper[s_len];
-    for (int i = 0; i < s_len; i++)
+    int i = 0;
+    for (i = 0; i < s_len; i++)
     {
         upper[i] = (unsigned char) toupper(input[i]);
     }
+    upper[i] = '\0';
     if (0 == strcmp("TRUE", upper)) *result = true;
     if (0 == strcmp("FALSE", upper)) *result = false;
     return 0;

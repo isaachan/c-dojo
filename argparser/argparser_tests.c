@@ -62,6 +62,17 @@ void test_parse_dir()
 void test_parse_logging_true()
 {
     int args = 3;
+    char *argv[] = { "bin_name", "-l", "true" };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    assert_true(p.logging);
+    assert_true(OK == result);
+}
+
+void test_parse_logging_false()
+{
+    int args = 3;
     char *argv[] = { "bin_name", "-l", "false" };
     parameters p = { true, 80, "" };
 
@@ -78,6 +89,7 @@ int main()
         cmocka_unit_test(test_parse_invalid_port),
         cmocka_unit_test(test_parse_dir),
         cmocka_unit_test(test_parse_logging_true),
+        cmocka_unit_test(test_parse_logging_false),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

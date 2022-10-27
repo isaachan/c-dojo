@@ -47,9 +47,9 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
         if (currentState == WAITING_FOR_PORT)
         {
             int port = parse_port(argv[i]);
-            if (0 == port)
+            if (0 >= port)
                 return INVALID_PORT;
-            p->port = port;
+	    p->port = port;
             currentState = WAITING_FOR_LABEL;
         }
         

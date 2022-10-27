@@ -40,7 +40,7 @@ void test_parse_port()
 
 void test_parse_invalid_port()
 {
-    char *invalid_ports[] = { "invalid_port" };    
+    char *invalid_ports[] = { "invalid_port", "-12", "0" };    
     for (int i = 0; i < sizeof invalid_ports/sizeof invalid_ports[0]; i++)
     {
         int args = 3;

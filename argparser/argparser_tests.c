@@ -91,13 +91,17 @@ void test_parse_invliad_logging()
 
 void valid_parse_logging(char* input, bool expected)
 {
-    int args = 3;
     char *argv[] = { "bin_name", "-l", input };
     parameters p = { true, 80, "" };
 
-    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
     assert_true(p.logging == expected);
     assert_true(OK == result);    
+}
+
+void valid_parse_multiple_parameters()
+{
+    
 }
 
 int main()

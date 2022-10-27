@@ -84,17 +84,7 @@ void test_parse_invliad_logging()
 
 }
 
-void valid_parse_logging(char* input, bool expected)
-{
-    char *argv[] = { "bin_name", "-l", input };
-    parameters p = { true, 80, "" };
-
-    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
-    assert_true(p.logging == expected);
-    assert_true(OK == result);    
-}
-
-void valid_parse_multiple_parameters()
+void test_parse_multiple_parameters()
 {
     char *argv[] = { "bin_name", "-l", "true", "-d", "/path", "-p", "8000" };
     parameters p = { true, 80, "" };
@@ -103,6 +93,25 @@ void valid_parse_multiple_parameters()
     assert_true(p.logging == true);
     assert_true(p.port == 8000);
     assert_true(0 == strcmp(p.dir, "/path"));
+}
+
+void test_invalid_label()
+{
+     char *argv[] = { "bin_name", "-l", "true", "-x", "/path" };
+     parameters p = { true, 80, "" };
+
+     enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
+     assert_true(result == INVALID_LABEL);
+}
+
+void valid_parse_logging(char* input, bool expected)
+{
+    char *argv[] = { "bin_name", "-l", input };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
+    assert_true(p.logging == expected);
+    assert_true(OK == result);
 }
 
 int main()
@@ -114,7 +123,8 @@ int main()
         cmocka_unit_test(test_parse_dir),
         cmocka_unit_test(test_parse_logging),
 	cmocka_unit_test(test_parse_invliad_logging),
-	cmocka_unit_test(valid_parse_multiple_parameters),
+	cmocka_unit_test(test_parse_multiple_parameters),
+	cmocka_unit_test(test_invalid_label),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

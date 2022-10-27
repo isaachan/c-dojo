@@ -42,6 +42,8 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
                 currentState = WAITING_FOR_LOGGING;
                 continue;
             }
+
+	    return INVALID_LABEL;
         }
 
         if (currentState == WAITING_FOR_PORT)

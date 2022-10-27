@@ -25,7 +25,7 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
     {
         if (currentState == WAITING_FOR_LABEL) 
         {
-            if (strcmp(argv[i], "-p") == 0) 
+            if (0 == strcmp(argv[i], "-p")) 
             {
                 currentState = WAITING_FOR_PORT;
                 continue;
@@ -56,7 +56,8 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
             int port = parse_port(argv[i]);
             if (0 >= port)
                 return INVALID_PORT;
-	    p->port = port;
+            
+            p->port = port;
             currentState = WAITING_FOR_LABEL;
         }
         
@@ -71,9 +72,9 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
             bool isLogging;
             int result = parse_logging(argv[i], &isLogging);           
             if (result < 0)
-	        return INVALID_LOGGING;
+                return INVALID_LOGGING;
             p->logging = isLogging;
-	    currentState = WAITING_FOR_LABEL;
+            currentState = WAITING_FOR_LABEL;
         }
     
     }

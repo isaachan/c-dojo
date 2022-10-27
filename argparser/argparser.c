@@ -62,7 +62,9 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
         if (currentState == WAITING_FOR_LOGGING)
         {
             bool isLogging;
-            parse_logging(argv[i], &isLogging);           
+            int result = parse_logging(argv[i], &isLogging);           
+            if (result < 0)
+	        return INVALID_LOGGING;
             p->logging = isLogging;
         }
     
@@ -81,9 +83,17 @@ int parse_logging(char *input, bool* result)
         upper[i] = (unsigned char) toupper(input[i]);
     }
     upper[i] = '\0';
-    if (0 == strcmp("TRUE", upper)) *result = true;
-    if (0 == strcmp("FALSE", upper)) *result = false;
-    return 0;
+    if (0 == strcmp("TRUE", upper))
+    {
+        *result = true;
+        return 0;
+    }
+    if (0 == strcmp("FALSE", upper))
+    {
+        *result = false;
+        return 0;
+    }
+    return -1;
 }
 
 

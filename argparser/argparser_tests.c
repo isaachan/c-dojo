@@ -74,6 +74,17 @@ void test_parse_logging()
     valid_parse_logging("truE", true);
 }
 
+void test_parse_invliad_logging()
+{
+    int args = 3;
+    char *argv[] = { "bin_name", "-l", "NOT_A_BOOL" };
+    parameters p = { true, 80, "" };
+
+    enum PARSE_RESULT result = parse_args(&p, args, argv);
+    assert_true(result == INVALID_LOGGING);
+
+}
+
 void valid_parse_logging(char* input, bool expected)
 {
     int args = 3;
@@ -93,6 +104,7 @@ int main()
         cmocka_unit_test(test_parse_invalid_port),
         cmocka_unit_test(test_parse_dir),
         cmocka_unit_test(test_parse_logging),
+	cmocka_unit_test(test_parse_invliad_logging),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

@@ -2,6 +2,7 @@ enum PARSE_RESULT
 {
     OK = 0,
     INVALID_PORT,
+    INVALID_LOGGING,
 };
 
 typedef struct

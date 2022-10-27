@@ -95,13 +95,13 @@ void test_parse_multiple_parameters()
     assert_true(0 == strcmp(p.dir, "/path"));
 }
 
-void test_invalid_label()
+void test_unknown_label()
 {
     char *argv[] = { "bin_name", "-l", "true", "-x", "/path" };
     parameters p = { true, 80, "" };
 
     enum PARSE_RESULT result = parse_args(&p, sizeof argv/sizeof argv[0], argv);
-    assert_true(result == INVALID_LABEL);
+    assert_true(result == UNKNOWN_LABEL);
 }
 
 void valid_parse_logging(char* input, bool expected)
@@ -124,7 +124,7 @@ int main()
         cmocka_unit_test(test_parse_logging),
         cmocka_unit_test(test_parse_invliad_logging),
         cmocka_unit_test(test_parse_multiple_parameters),
-        cmocka_unit_test(test_invalid_label),
+        cmocka_unit_test(test_unknown_label),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);

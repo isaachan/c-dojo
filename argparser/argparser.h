@@ -3,7 +3,7 @@ enum PARSE_RESULT
     OK = 0,
     INVALID_PORT,
     INVALID_LOGGING,
-    INVALID_LABEL,
+    UNKNOWN_LABEL,
 };
 
 typedef struct

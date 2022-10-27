@@ -43,7 +43,7 @@ enum PARSE_RESULT parse_args(parameters *p, int args, char *argv[])
                 continue;
             }
 
-            return INVALID_LABEL;
+            return UNKNOWN_LABEL;
         }
 
         if (currentState == WAITING_FOR_PORT)

@@ -21,30 +21,11 @@ void move(Rover *r)
     }
 }
 
+Direction ds[4] = {N, E, S, W};
+
 void turn_left(Rover *r)
 {
-    if (r->direction == N) 
-    {
-        r->direction = W;
-        return;
-    }
-    if (r->direction == W) 
-    {
-        r->direction = S;
-        return;
-    }
-    if (r->direction == S)
-    {
-        r->direction = E;
-        return;
-    }
-    if (r->direction == E)
-    {
-        r->direction = N;
-        return;
-    }
-
-
+    r->direction = ds[(r->direction + 4 - 1)%4];
 }
 
 void turn_right(Rover *r)

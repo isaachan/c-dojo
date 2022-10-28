@@ -7,7 +7,7 @@ typedef struct
 
 typedef enum
 {
-    E = 0, S, W, N,
+    N = 0, E, S, W,
 } Direction;
 
 

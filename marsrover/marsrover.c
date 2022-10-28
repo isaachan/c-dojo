@@ -49,6 +49,8 @@ void execute(Rover *r, char *command)
             case 'R':
                 turn_right(r);
                 break;
+            defalut:
+                printf("Unkown command: [%c].\n", command[i]);
         }
     }    
 }

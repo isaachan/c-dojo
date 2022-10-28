@@ -128,6 +128,15 @@ void execute_batch_commands()
     assert_rover_status(&r, 0, 0, W);
 }
 
+void ignore_unknown_command_when_execute_batch_command()
+{
+    Plateau p = {5, 10};
+    Rover r;
+
+    r = (Rover) {0, 0, N, p};
+    execute(&r, "MxMyRasfasfMABDMadfsRssdf123");
+    assert_rover_status(&r, 2, 2, S);
+}
 
 int main()
 {
@@ -138,6 +147,7 @@ int main()
         cmocka_unit_test(rover_execute_R_command),
         cmocka_unit_test(rover_ignore_M_if_overstep_bounary),
         cmocka_unit_test(execute_batch_commands),
+        cmocka_unit_test(ignore_unknown_command_when_execute_batch_command),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

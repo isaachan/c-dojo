@@ -46,11 +46,34 @@ void rover_execute_M_command()
     assert_rover_status(&r, 0, 1, W);
 }
 
+void rover_execute_L_command()
+{
+    Plateau p = {5, 10};
+    Rover r;
+
+    r = (Rover) {1, 1, N, p};
+    turn_left(&r);
+    assert_rover_status(&r, 1, 1, W);
+
+    r = (Rover) {1, 1, W, p};
+    turn_left(&r);
+    assert_rover_status(&r, 1, 1, S);
+
+    r = (Rover) {1, 1, S, p};
+    turn_left(&r);
+    assert_rover_status(&r, 1, 1, E);
+
+    r = (Rover) {1, 1, E, p};
+    turn_left(&r);
+    assert_rover_status(&r, 1, 1, N);
+}
+
 int main()
 {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(setup_plateau_and_init_position),
         cmocka_unit_test(rover_execute_M_command),
+        cmocka_unit_test(rover_execute_L_command),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 #include "marsrover.h"
 
 void move(Rover *r)
@@ -23,6 +23,28 @@ void move(Rover *r)
 
 void turn_left(Rover *r)
 {
+    if (r->direction == N) 
+    {
+        r->direction = W;
+        return;
+    }
+    if (r->direction == W) 
+    {
+        r->direction = S;
+        return;
+    }
+    if (r->direction == S)
+    {
+        r->direction = E;
+        return;
+    }
+    if (r->direction == E)
+    {
+        r->direction = N;
+        return;
+    }
+
+
 }
 
 void turn_right(Rover *r)

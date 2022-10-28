@@ -18,6 +18,10 @@ void setup_plateau_and_init_position()
     assert_true(10 == r.plateau.height);
 }
 
+void rover_execute_single_command()
+{
+    
+}
 
 int main()
 {

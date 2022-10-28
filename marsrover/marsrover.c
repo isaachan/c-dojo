@@ -30,5 +30,6 @@ void turn_left(Rover *r)
 
 void turn_right(Rover *r)
 {
+    r->direction = ds[(r->direction+1)%4];
 }
 

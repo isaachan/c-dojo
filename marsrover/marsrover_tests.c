@@ -5,6 +5,12 @@
 #include <stdio.h>
 #include "marsrover.h"
 
+void assert_rover_status(Rover *p, int expected_x, int expected_y, Direction expected_d)
+{
+    assert_true(expected_x == p->x);
+    assert_true(expected_y == p->y);
+    assert_true(expected_d == p->direction);
+}
 
 void setup_plateau_and_init_position()
 {
@@ -18,15 +24,33 @@ void setup_plateau_and_init_position()
     assert_true(10 == r.plateau.height);
 }
 
-void rover_execute_single_command()
+void rover_execute_M_command()
 {
+    Plateau p = {5, 10};
+    Rover r;
+     
+    r = (Rover) { 1, 1, N, p };
+    move(&r);
+    assert_rover_status(&r, 1, 2, N);
+
+    r = (Rover) { 1, 1, S, p };
+    move(&r);
+    assert_rover_status(&r, 1, 0, S);
     
+    r = (Rover) { 1, 1, E, p };
+    move(&r);
+    assert_rover_status(&r, 2, 1, E);
+
+    r = (Rover) { 1, 1, W, p };
+    move(&r);
+    assert_rover_status(&r, 0, 1, W);
 }
 
 int main()
 {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(setup_plateau_and_init_position),
+        cmocka_unit_test(rover_execute_M_command),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

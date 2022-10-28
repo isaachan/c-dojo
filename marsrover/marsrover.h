@@ -19,9 +19,11 @@ typedef struct
     Plateau plateau;
 } Rover;
 
-void move(Rover *r);
+void move(Rover *);
 
-void turn_left(Rover *r);
+void turn_left(Rover *);
 
-void turn_right(Rover *r);
+void turn_right(Rover *);
+
+void execute(Rover *, char *);
 

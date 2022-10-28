@@ -114,6 +114,20 @@ void rover_execute_R_command()
     assert_rover_status(&r, 1, 1, W);
 }
 
+void execute_batch_commands()
+{
+    Plateau p = {5, 10};
+    Rover r;
+
+    r = (Rover) {0, 0, N, p};
+    execute(&r, "MMRMMR");
+    assert_rover_status(&r, 2, 2, S);
+
+    r = (Rover) {0, 0, N, p};
+    execute(&r, "LMMMMMMM");
+    assert_rover_status(&r, 0, 0, W);
+}
+
 
 int main()
 {
@@ -123,6 +137,7 @@ int main()
         cmocka_unit_test(rover_execute_L_command),
         cmocka_unit_test(rover_execute_R_command),
         cmocka_unit_test(rover_ignore_M_if_overstep_bounary),
+        cmocka_unit_test(execute_batch_commands),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

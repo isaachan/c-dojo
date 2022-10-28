@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "marsrover.h"
 
 void move(Rover *r)
@@ -33,3 +34,21 @@ void turn_right(Rover *r)
     r->direction = ds[(r->direction+1)%4];
 }
 
+void execute(Rover *r, char *command)
+{
+    for (int i = 0; i < strlen(command); i++)
+    {
+        switch(command[i])
+        {
+            case 'M':
+                move(r);
+                break;
+            case 'L':
+                turn_left(r);
+                break;
+            case 'R':
+                turn_right(r);
+                break;
+        }
+    }    
+}

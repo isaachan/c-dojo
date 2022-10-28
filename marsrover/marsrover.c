@@ -7,16 +7,16 @@ void move(Rover *r)
     switch(r->direction)
     {
         case N:
-            r->y++; // = r->y + 1;
+            if (r->y < r->plateau.height - 2) r->y++;
             break;
         case S:
-            r->y--;
+            if (r->y > 0) r->y--;
             break;
         case E:
-            r->x++;
+            if (r->x < r->plateau.weight - 2) r->x++;
             break;
         case W:
-            r->x--;
+            if (r->x > 0) r->x--;
             break;
     }
 }

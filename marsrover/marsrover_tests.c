@@ -46,6 +46,30 @@ void rover_execute_M_command()
     assert_rover_status(&r, 0, 1, W);
 }
 
+void rover_ignore_M_if_overstep_bounary()
+{
+    Plateau p = {5, 10};
+    Rover r;
+
+    r = (Rover) {0, 0, W, p};
+    move(&r);
+    assert_rover_status(&r, 0, 0, W);
+
+    r = (Rover) {0, 0, S, p};
+    move(&r);
+    assert_rover_status(&r, 0, 0, S);
+
+    r = (Rover) {p.weight-1, p.height-1, N, p};
+    move(&r);
+    assert_rover_status(&r, p.weight-1, p.height-1, N);
+
+    r = (Rover) {p.weight-1, p.height-1, E, p};
+    move(&r);
+    assert_rover_status(&r, p.weight-1, p.height-1, E);
+}
+
+
+
 void rover_execute_L_command()
 {
     Plateau p = {5, 10};
@@ -98,6 +122,7 @@ int main()
         cmocka_unit_test(rover_execute_M_command),
         cmocka_unit_test(rover_execute_L_command),
         cmocka_unit_test(rover_execute_R_command),
+        cmocka_unit_test(rover_ignore_M_if_overstep_bounary),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

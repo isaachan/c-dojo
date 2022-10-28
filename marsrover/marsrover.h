@@ -25,5 +25,5 @@ void turn_left(Rover *);
 
 void turn_right(Rover *);
 
-void execute(Rover *, char *);
+void execute(Rover *, const char *);
 
